@@ -39,7 +39,6 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
           exit={{ opacity: 0, scale: 0.88, y: 15 }}
           transition={{ type: 'spring', stiffness: 450, damping: 28 }}
         >
-          {/* Header */}
           <div className="confirm-modal-header">
             <div className="confirm-icon-badge">{iconBadge}</div>
             <h3 className="confirm-modal-title">{title}</h3>
@@ -51,12 +50,10 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
             </button>
           </div>
 
-          {/* Body Message */}
           <div className="confirm-modal-body">
             <p className="confirm-modal-text">{message}</p>
           </div>
 
-          {/* Action Buttons */}
           <div className="confirm-modal-actions">
             <button
               type="button"

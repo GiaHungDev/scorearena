@@ -26,25 +26,19 @@ export default function HomePage() {
     addScore,
     advanceNextRound,
     resetGame,
-    // Bell
     showBellModal,
     bellActivePlayer,
     triggerBell,
     resolveBellSuccess,
     resolveBellBlock,
     setShowBellModal,
-    // Wheel
     showWheelModal,
     setShowWheelModal,
-    // History
     showHistoryModal,
     setShowHistoryModal,
-    // Audit
     showAuditModal,
     setShowAuditModal,
-    // Auto Advance Countdown
     autoAdvanceCountdown,
-    // Custom Confirm Dialog
     confirmDialog,
     closeConfirmDialog
   } = useScorekeeper();
@@ -53,7 +47,6 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Top Navigation Bar */}
       <TopNav
         playerCount={playerCount}
         onSetPlayerCount={setPlayerCount}
@@ -67,7 +60,6 @@ export default function HomePage() {
         onResetGame={resetGame}
       />
 
-      {/* Main Game Board */}
       <GameBoard
         playerCount={playerCount}
         tableOrientation={tableOrientation}
@@ -77,7 +69,6 @@ export default function HomePage() {
         onUpdateName={updatePlayerName}
       />
 
-      {/* Floating Corner Round Control Dock */}
       <RoundCornerDock
         currentRound={currentRound}
         submittedCount={submittedCount}
@@ -87,7 +78,6 @@ export default function HomePage() {
         autoAdvanceCountdown={autoAdvanceCountdown}
       />
 
-      {/* Check / Audit Modal */}
       <CheckAuditModal
         isOpen={showAuditModal}
         players={players}
@@ -97,7 +87,6 @@ export default function HomePage() {
         onAdvanceNextRound={advanceNextRound}
       />
 
-      {/* Bell Ring Challenge Modal */}
       <BellModal
         isOpen={showBellModal}
         playerCount={playerCount}
@@ -108,14 +97,12 @@ export default function HomePage() {
         onBlock={resolveBellBlock}
       />
 
-      {/* Wheel of Names Modal */}
       <WheelModal
         isOpen={showWheelModal}
         players={players}
         onClose={() => setShowWheelModal(false)}
       />
 
-      {/* Balance & History Modal */}
       <HistoryModal
         isOpen={showHistoryModal}
         players={players}
@@ -124,7 +111,6 @@ export default function HomePage() {
         onClose={() => setShowHistoryModal(false)}
       />
 
-      {/* Custom Neon Confirmation Modal */}
       <ConfirmModal
         isOpen={!!confirmDialog?.isOpen}
         title={confirmDialog?.title || ''}

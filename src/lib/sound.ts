@@ -1,6 +1,3 @@
-// Web Audio API Synthesizer for Anime Scorekeeper
-// 100% offline & zero dependencies
-
 class SoundController {
   private ctx: AudioContext | null = null;
   public enabled: boolean = true;
@@ -23,7 +20,6 @@ class SoundController {
     return this.enabled;
   }
 
-  // Bell Ring (Harmonic bell chime)
   public playBell() {
     if (!this.enabled) return;
     this.init();
@@ -50,7 +46,6 @@ class SoundController {
     });
   }
 
-  // Alarm Buzzer (Alert when 1 player forgot to input)
   public playAlarm() {
     if (!this.enabled) return;
     this.init();
@@ -75,7 +70,6 @@ class SoundController {
     });
   }
 
-  // Wheel Ticking
   public playTick() {
     if (!this.enabled) return;
     this.init();
@@ -97,7 +91,6 @@ class SoundController {
     osc.stop(t + 0.05);
   }
 
-  // Point Added (+ coin chime)
   public playCoin() {
     if (!this.enabled) return;
     this.init();
@@ -122,7 +115,6 @@ class SoundController {
     });
   }
 
-  // Victory Fanfare
   public playVictory() {
     if (!this.enabled) return;
     this.init();
@@ -147,7 +139,6 @@ class SoundController {
     });
   }
 
-  // Block / Thud Sound
   public playThud() {
     if (!this.enabled) return;
     this.init();

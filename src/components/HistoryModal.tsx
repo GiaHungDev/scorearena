@@ -38,7 +38,6 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
         </div>
 
         <div>
-          {/* Balance summary */}
           <div
             id="balance-diff-info"
             style={{ fontSize: '0.95rem', color: '#ffaa00', marginBottom: '8px' }}
@@ -46,7 +45,6 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
             Chênh lệch nhất bảng: <strong>{diff} điểm</strong> (Cao nhất: {maxScore} - Thấp nhất: {minScore})
           </div>
 
-          {/* Balance Table */}
           <table className="balance-table">
             <thead>
               <tr>
@@ -89,7 +87,6 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
             </tbody>
           </table>
 
-          {/* History Activity Logs */}
           <h3 style={{ fontSize: '1.05rem', color: '#e2e8f0', margin: '16px 0 8px 0' }}>
             📜 Nhật Ký Điểm Gần Đây
           </h3>

@@ -28,7 +28,6 @@ export const CheckAuditModal: React.FC<CheckAuditModalProps> = ({
   const totalScorePool = scores.reduce((sum, s) => sum + s, 0);
   const gap = maxScore - minScore;
 
-  // Round specific stats
   const roundDeltas = players.map((p) => p.currentRoundDelta);
   const roundTotalDelta = roundDeltas.reduce((sum, d) => sum + d, 0);
   const unsubmittedPlayers = players.filter((p) => !p.hasInputRound);
@@ -55,7 +54,6 @@ export const CheckAuditModal: React.FC<CheckAuditModalProps> = ({
         </div>
 
         <div className="audit-content">
-          {/* Card 1: Kiểm Tra Lệch Số Vòng Hiện Tại */}
           <div className="audit-section-card" style={{ borderColor: unsubmittedPlayers.length > 0 ? '#ffaa00' : '#00ff88' }}>
             <div className="audit-section-header">
               <span className="section-badge">VÒNG {currentRound}</span>
@@ -69,7 +67,6 @@ export const CheckAuditModal: React.FC<CheckAuditModalProps> = ({
               </span>
             </div>
 
-            {/* Alert Banner for round check */}
             {unsubmittedPlayers.length > 0 ? (
               <div className="audit-alert-box warning">
                 ⚠️ <strong>Cảnh báo lệch số:</strong> Có <strong>{unsubmittedPlayers.length}/{players.length}</strong> người chơi chưa bấm điểm vòng {currentRound} ({unsubmittedPlayers.map(p => p.name).join(', ')}).
@@ -80,7 +77,6 @@ export const CheckAuditModal: React.FC<CheckAuditModalProps> = ({
               </div>
             )}
 
-            {/* Round players detail list */}
             <div className="audit-players-grid">
               {players.map((p) => (
                 <div
@@ -109,7 +105,6 @@ export const CheckAuditModal: React.FC<CheckAuditModalProps> = ({
             </div>
           </div>
 
-          {/* Card 2: Bảng Cân Bằng Điểm & Khoảng Cách Đáy / Đỉnh */}
           <div className="audit-section-card">
             <div className="audit-section-header">
               <span className="section-badge" style={{ background: '#ffaa00', color: '#000' }}>TOÀN BÀN</span>
@@ -118,7 +113,6 @@ export const CheckAuditModal: React.FC<CheckAuditModalProps> = ({
               </span>
             </div>
 
-            {/* Metrics summary row */}
             <div className="audit-metrics-row">
               <div className="metric-box">
                 <div className="metric-label">ĐỘ LỆCH ĐỈNH - ĐÁY</div>
@@ -146,7 +140,6 @@ export const CheckAuditModal: React.FC<CheckAuditModalProps> = ({
               </div>
             </div>
 
-            {/* Gap Table */}
             <table className="balance-table" style={{ margin: '10px 0 0 0' }}>
               <thead>
                 <tr>
@@ -198,7 +191,6 @@ export const CheckAuditModal: React.FC<CheckAuditModalProps> = ({
             </table>
           </div>
 
-          {/* Modal Actions */}
           <div className="audit-footer-actions">
             <button className="btn-modal-secondary" onClick={onClose}>
               Đóng Kiểm Tra

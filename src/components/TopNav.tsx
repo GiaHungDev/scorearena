@@ -39,7 +39,6 @@ export const TopNav: React.FC<TopNavProps> = ({
         </div>
 
         <nav className="nav-actions">
-          {/* 4 or 5 Players Toggle */}
           <button
             className={`btn-nav ${playerCount === 4 ? 'active' : ''}`}
             onClick={() => onSetPlayerCount(4)}
@@ -55,7 +54,6 @@ export const TopNav: React.FC<TopNavProps> = ({
             ⭐ 5 Người
           </button>
 
-          {/* Audit / Check Lệch Số */}
           <button
             className="btn-nav btn-audit-nav"
             onClick={onOpenAudit}
@@ -64,7 +62,6 @@ export const TopNav: React.FC<TopNavProps> = ({
             🔍 Kiểm Tra Lệch Số
           </button>
 
-          {/* Wheel of Names */}
           <button
             className="btn-nav btn-wheel-special"
             onClick={onOpenWheel}
@@ -73,7 +70,6 @@ export const TopNav: React.FC<TopNavProps> = ({
             🎯 Người Bắt Đầu
           </button>
 
-          {/* Tabletop 360 Mode */}
           <button
             className={`btn-nav ${tableOrientation === 'tabletop' ? 'active' : ''}`}
             onClick={onToggleOrientation}
@@ -82,7 +78,6 @@ export const TopNav: React.FC<TopNavProps> = ({
             🔄 Xoay Mặt Bàn
           </button>
 
-          {/* Balance & History */}
           <button
             className="btn-nav"
             onClick={onOpenHistory}
@@ -91,7 +86,6 @@ export const TopNav: React.FC<TopNavProps> = ({
             📊 Cân Bằng & Nhật Ký
           </button>
 
-          {/* Sound Toggle */}
           <button
             className={`btn-nav ${!soundEnabled ? 'btn-muted' : ''}`}
             onClick={onToggleSound}
@@ -100,7 +94,6 @@ export const TopNav: React.FC<TopNavProps> = ({
             {soundEnabled ? '🔊 Âm thanh: BẬT' : '🔇 Âm thanh: TẮT'}
           </button>
 
-          {/* Reset Game */}
           <button
             className="btn-nav"
             onClick={onResetGame}
@@ -111,7 +104,6 @@ export const TopNav: React.FC<TopNavProps> = ({
         </nav>
       </header>
 
-      {/* Push Up / Pull Down Toggle Handle */}
       <button
         className="btn-toggle-header"
         onClick={() => setIsCollapsed(!isCollapsed)}

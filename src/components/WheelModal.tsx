@@ -33,7 +33,6 @@ export const WheelModal: React.FC<WheelModalProps> = ({
   const lastSectorRef = useRef<number>(-1);
   const animationFrameRef = useRef<number | null>(null);
 
-  // Sync initial names from players
   useEffect(() => {
     if (players.length > 0) {
       const playerNames = players.map((p) => p.name);
@@ -42,7 +41,6 @@ export const WheelModal: React.FC<WheelModalProps> = ({
     }
   }, [players]);
 
-  // Draw wheel function
   const drawWheel = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -67,7 +65,6 @@ export const WheelModal: React.FC<WheelModalProps> = ({
 
     ctx.clearRect(0, 0, size, size);
 
-    // Outer Glow Ring
     ctx.save();
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius + 8, 0, 2 * Math.PI);
@@ -77,7 +74,6 @@ export const WheelModal: React.FC<WheelModalProps> = ({
     ctx.fill();
     ctx.restore();
 
-    // Draw Sectors
     names.forEach((name, i) => {
       const angle = angleRef.current + i * arc;
       const color = WHEEL_COLORS[i % WHEEL_COLORS.length];
@@ -94,7 +90,6 @@ export const WheelModal: React.FC<WheelModalProps> = ({
       ctx.strokeStyle = '#0f172a';
       ctx.stroke();
 
-      // Text label
       ctx.save();
       ctx.translate(centerX, centerY);
       ctx.rotate(angle + arc / 2);
@@ -109,7 +104,6 @@ export const WheelModal: React.FC<WheelModalProps> = ({
       ctx.restore();
     });
 
-    // Center Hub Circle
     ctx.save();
     ctx.beginPath();
     ctx.arc(centerX, centerY, 32, 0, 2 * Math.PI);
@@ -121,7 +115,6 @@ export const WheelModal: React.FC<WheelModalProps> = ({
     ctx.strokeStyle = '#00d2ff';
     ctx.stroke();
 
-    // Center star / icon
     ctx.fillStyle = '#ffaa00';
     ctx.font = '20px sans-serif';
     ctx.textAlign = 'center';
@@ -129,7 +122,6 @@ export const WheelModal: React.FC<WheelModalProps> = ({
     ctx.fillText('⭐', centerX, centerY);
     ctx.restore();
 
-    // Pointer on the right (at 0 rad)
     ctx.save();
     ctx.translate(centerX + radius + 4, centerY);
     ctx.beginPath();
@@ -149,19 +141,17 @@ export const WheelModal: React.FC<WheelModalProps> = ({
     ctx.restore();
   }, [names]);
 
-  // Redraw when modal opens or names change
   useEffect(() => {
     if (isOpen) {
       setTimeout(drawWheel, 50);
     }
   }, [isOpen, drawWheel]);
 
-  // Spin animation loop
   const animate = useCallback(() => {
     if (!isSpinningRef.current) return;
 
     angleRef.current += speedRef.current;
-    speedRef.current *= 0.988; // Friction
+    speedRef.current *= 0.988;
 
     const arc = (2 * Math.PI) / (names.length || 1);
     const normalizedAngle = (2 * Math.PI - (angleRef.current % (2 * Math.PI))) % (2 * Math.PI);
@@ -184,16 +174,13 @@ export const WheelModal: React.FC<WheelModalProps> = ({
       setWinner({ name: winName, index: currentSector });
       soundCtrl.playVictory();
 
-      // Trigger Confetti
       try {
         confetti({
           particleCount: 100,
           spread: 70,
           origin: { y: 0.6 }
         });
-      } catch {
-        // Safe fallback
-      }
+      } catch {}
       return;
     }
 
@@ -254,11 +241,9 @@ export const WheelModal: React.FC<WheelModalProps> = ({
         </div>
 
         <div className="wheel-modal-body">
-          {/* Wheel Canvas Container */}
           <div className="wheel-canvas-container">
             <canvas ref={canvasRef} />
 
-            {/* Winner Announcement Overlay */}
             {winner && (
               <div className="winner-popup-wrap active">
                 <div className="winner-trophy">👑</div>
@@ -276,7 +261,6 @@ export const WheelModal: React.FC<WheelModalProps> = ({
             )}
           </div>
 
-          {/* Wheel Sidebar Settings */}
           <div className="wheel-sidebar">
             <label style={{ fontWeight: 700, fontSize: '0.9rem', color: '#8c9cb8' }}>
               Danh sách tên (mỗi dòng một tên):

@@ -24,7 +24,6 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({
   const [showKeypad, setShowKeypad] = useState<boolean>(false);
   const keypadRef = useRef<HTMLDivElement>(null);
 
-  // Close keypad when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (keypadRef.current && !keypadRef.current.contains(e.target as Node)) {
@@ -94,7 +93,6 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({
         '--player-color-border': player.colorBorder
       } as React.CSSProperties}
     >
-      {/* Card Header */}
       <div className="card-header">
         <div className="player-avatar-wrap">
           <div
@@ -119,7 +117,6 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({
         </div>
       </div>
 
-      {/* Score Display */}
       <div className="card-score-display">
         <div className="score-label">ĐIỂM SỐ</div>
         <motion.div
@@ -132,7 +129,6 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({
           {player.score}
         </motion.div>
         
-        {/* Framer Motion AnimatePresence */}
         <AnimatePresence mode="popLayout">
           {player.activeTag && (
             <motion.div
@@ -167,7 +163,6 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({
         </AnimatePresence>
       </div>
 
-      {/* Bottom Controls: Bell + Score Stepper */}
       <div className="card-controls">
         <div className="card-bell-section">
           <button
@@ -207,7 +202,6 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({
           </button>
         </div>
 
-        {/* Attached Floating Keypad Popover directly on the card */}
         <AnimatePresence>
           {showKeypad && (
             <motion.div

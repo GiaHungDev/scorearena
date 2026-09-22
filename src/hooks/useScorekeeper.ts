@@ -42,7 +42,6 @@ export function useScorekeeper() {
   const [tableOrientation, setTableOrientation] = useState<TableOrientation>('standard');
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
   
-  // Auto-advance countdown
   const [autoAdvanceCountdown, setAutoAdvanceCountdown] = useState<number | null>(null);
   const autoTimerRef = useRef<NodeJS.Timeout | null>(null);
   const autoIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -108,14 +107,12 @@ export function useScorekeeper() {
     }, 5000);
   }, [cancelAutoAdvance]);
   
-  // Modals
   const [showBellModal, setShowBellModal] = useState<boolean>(false);
   const [bellActivePlayer, setBellActivePlayer] = useState<Player | null>(null);
   const [showWheelModal, setShowWheelModal] = useState<boolean>(false);
   const [showHistoryModal, setShowHistoryModal] = useState<boolean>(false);
   const [showAuditModal, setShowAuditModal] = useState<boolean>(false);
 
-  // Custom Confirmation Modal
   const [confirmDialog, setConfirmDialog] = useState<{
     isOpen: boolean;
     title: string;
@@ -130,7 +127,6 @@ export function useScorekeeper() {
     setConfirmDialog(null);
   }, []);
 
-  // Initialize players
   const initPlayers = useCallback((count: GameMode): Player[] => {
     const storedNames = getStoredPlayerNames();
     const list: Player[] = [];
@@ -159,12 +155,10 @@ export function useScorekeeper() {
 
   const [manualClickedPlayers, setManualClickedPlayers] = useState<number[]>([]);
 
-  // Initial load
   useEffect(() => {
     setPlayers(initPlayers(playerCount));
   }, [initPlayers, playerCount]);
 
-  // Clean up tag older than 3 seconds (3000ms)
   useEffect(() => {
     const interval = setInterval(() => {
       const now = Date.now();
@@ -219,24 +213,21 @@ export function useScorekeeper() {
     setPlayers(prev => prev.map(p => p.id === playerId ? { ...p, name: newName } : p));
   };
 
-  // Real-time score modification & Zero-sum calculation (Đợi đủ N-1 người bấm rồi mới tính 1 người còn lại)
   const addScore = (playerId: number, amount: number, reason: string = '') => {
     soundCtrl.playCoin();
     const nowStr = new Date().toLocaleTimeString('vi-VN');
     const nowTime = Date.now();
     const newLogs: HistoryItem[] = [];
 
-    // Danh sách những người chơi khác nhau đã từng bấm trong ván này
     const nextManualList = manualClickedPlayers.includes(playerId)
       ? manualClickedPlayers
       : [...manualClickedPlayers, playerId];
     setManualClickedPlayers(nextManualList);
 
-    const totalCount = playerCount; // 4 hoặc 5
-    const neededCount = totalCount - 1; // 3 người (bàn 4) hoặc 4 người (bàn 5)
+    const totalCount = playerCount;
+    const neededCount = totalCount - 1;
 
     setPlayers(prev => {
-      // 1. Chỉ cập nhật điểm và delta riêng cho người vừa bấm nút (Tuyệt đối không đụng ai khác)
       let working = prev.map(p => {
         if (p.id === playerId) {
           const nextScore = p.score + amount;
@@ -266,9 +257,6 @@ export function useScorekeeper() {
         });
       }
 
-      // 2. Tự động tính bù cho người duy nhất chưa bấm:
-      // - Nếu chưa đủ (totalCount - 1) người bấm: Không đụng đến bất kỳ ai khác!
-      // - Khi đã có đúng (totalCount - 1) người bấm: Người còn lại duy nhất sẽ liên tục được tự bù điểm kể cả khi bấm nhanh/chậm/nhiều lần + -
       if (nextManualList.length === neededCount) {
         const remainingPlayer = working.find(p => !nextManualList.includes(p.id));
 
@@ -310,7 +298,6 @@ export function useScorekeeper() {
           }
         }
 
-        // Tự động đếm lùi 5 giây chuyển sang vòng mới
         startAutoAdvance();
       } else {
         cancelAutoAdvance();
@@ -391,7 +378,6 @@ export function useScorekeeper() {
     });
   };
 
-  // Bell handling
   const triggerBell = (playerId: number) => {
     const target = players.find(p => p.id === playerId);
     if (!target) return;
@@ -403,7 +389,7 @@ export function useScorekeeper() {
   const resolveBellSuccess = () => {
     if (!bellActivePlayer) return;
     const pts = playerCount === 4 ? 60 : 80;
-    const deductPerOther = 20; // 3 x 20 = 60 (in 4p) or 4 x 20 = 80 (in 5p)
+    const deductPerOther = 20;
     const ringer = bellActivePlayer;
     soundCtrl.playVictory();
     const nowTime = Date.now();
@@ -421,7 +407,6 @@ export function useScorekeeper() {
           activeTag: accumulateTag(p.activeTag, pts, nowTime)
         };
       } else {
-        // Các người chơi khác bị trừ -20
         const nextScore = p.score - deductPerOther;
         const nextDelta = p.currentRoundDelta - deductPerOther;
         return {
@@ -453,7 +438,6 @@ export function useScorekeeper() {
     startAutoAdvance();
   };
 
-  // When bell challenge FAILS: Blocker gets +points, Ringer gets -points!
   const resolveBellBlock = (blockerId: number) => {
     if (!bellActivePlayer) return;
     const blockerPts = playerCount === 4 ? 80 : 100;
@@ -537,25 +521,19 @@ export function useScorekeeper() {
     addScore,
     advanceNextRound,
     resetGame,
-    // Bell
     showBellModal,
     bellActivePlayer,
     triggerBell,
     resolveBellSuccess,
     resolveBellBlock,
     setShowBellModal,
-    // Wheel
     showWheelModal,
     setShowWheelModal,
-    // History
     showHistoryModal,
     setShowHistoryModal,
-    // Audit / Check Lệch Số
     showAuditModal,
     setShowAuditModal,
-    // Auto Advance Countdown
     autoAdvanceCountdown,
-    // Custom Confirm Dialog
     confirmDialog,
     closeConfirmDialog
   };
