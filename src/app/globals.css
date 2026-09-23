@@ -293,11 +293,10 @@ body {
     flex-direction: column;
     gap: 8px;
     min-width: 210px;
-    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: border-color 0.25s, box-shadow 0.25s;
 }
 
 .round-corner-dock.minimized {
-    cursor: pointer;
     min-width: unset;
     padding: 8px 14px;
     flex-direction: row;
@@ -335,6 +334,28 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
+}
+
+.dock-drag-handle {
+    border: none;
+    background: transparent;
+    color: inherit;
+    cursor: grab;
+    touch-action: none;
+    min-height: 32px;
+}
+
+.dock-drag-handle:active {
+    cursor: grabbing;
+}
+
+.dock-drag-handle:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 3px;
+}
+
+.dock-round-tag.dock-drag-handle {
+    flex: 1;
 }
 
 .dock-round-icon {
@@ -977,6 +998,7 @@ body {
 .input-custom-score,
 .input-custom-score-btn {
     flex: 1;
+    min-width: 0;
     background: rgba(10, 14, 25, 0.95);
     border: 1.5px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
@@ -1087,43 +1109,6 @@ body {
     background: #1a1e2e;
     color: #94a3b8;
     font-size: 0.9rem;
-}
-
-/* Tabletop Mode Rotations (Xoay 4/5 hướng người ngồi) */
-.orient-tabletop.layout-4 .pos-p1 {
-    transform: rotate(180deg);
-}
-
-.orient-tabletop.layout-4 .pos-p2 {
-    transform: rotate(180deg);
-}
-
-.orient-tabletop.layout-4 .pos-p3 {
-    transform: rotate(0deg);
-}
-
-.orient-tabletop.layout-4 .pos-p4 {
-    transform: rotate(0deg);
-}
-
-.orient-tabletop.layout-5 .pos-p1 {
-    transform: rotate(180deg);
-}
-
-.orient-tabletop.layout-5 .pos-p2 {
-    transform: rotate(180deg);
-}
-
-.orient-tabletop.layout-5 .pos-p3 {
-    transform: rotate(90deg);
-}
-
-.orient-tabletop.layout-5 .pos-p4 {
-    transform: rotate(0deg);
-}
-
-.orient-tabletop.layout-5 .pos-p5 {
-    transform: rotate(270deg);
 }
 
 /* Modals */
